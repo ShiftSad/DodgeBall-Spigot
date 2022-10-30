@@ -6,3 +6,7 @@ authors: [ Sadness ]
 description: Minigame DodgeBall no Minecraft
 depend:
   - SlimeWorldManager
+libraries:
+  - org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20
+  - org.tinylog:tinylog-api-kotlin:2.5.0
+  - org.tinylog:tinylog-impl:2.5.0

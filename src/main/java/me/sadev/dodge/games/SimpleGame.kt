@@ -1,12 +1,5 @@
 package me.sadev.dodge.games
 
-import com.grinderwolf.swm.api.exceptions.CorruptedWorldException
-import com.grinderwolf.swm.api.exceptions.NewerFormatException
-import com.grinderwolf.swm.api.exceptions.UnknownWorldException
-import com.grinderwolf.swm.api.exceptions.WorldInUseException
-import com.grinderwolf.swm.api.loaders.SlimeLoader
-import com.grinderwolf.swm.api.world.SlimeWorld
-import me.sadev.dodge.Main
 import me.sadev.dodge.Main.Companion.instance
 import me.sadev.dodge.Main.Companion.slimeAPI
 import org.bukkit.Bukkit
@@ -26,21 +19,21 @@ class SimpleGame(
     private lateinit var arena: World
 
     init {
-        val scheduler = Bukkit.getScheduler()
-        scheduler.runTaskAsynchronously(instance, Runnable {
-            val time = measureTimeMillis {
-                val templateWorld = slimeAPI.getWorld(templateName)
-                val loader = templateWorld.loader
-                // Cloning the world into a new world
-                slimeAPI.loadWorld(loader, templateName, true, templateWorld.propertyMap).clone(uuid)
-                // Calls to getWorld needs to be in the main thread
-                scheduler.runTask(instance, Runnable {
-                    arena = Bukkit.getWorld(uuid)!!
+        val time = measureTimeMillis {
+            val templateWorld = slimeAPI.getWorld(templateName)
+            val loader = templateWorld.loader
+            slimeAPI.asyncLoadWorld(loader, templateName, true, templateWorld.propertyMap).thenAccept {
+                val wrd = it.get().clone(uuid, loader, true)
+                slimeAPI.generateWorld(wrd) // Generate the world
+                Logger.debug { "Loaded world $wrd" }
+                Bukkit.getScheduler().runTask(instance, Runnable {
+                    arena = Bukkit.getWorld(wrd.name) ?: throw Exception("World can not be null")
                     arenaStatus = ArenaStatus.WAITING
+                    Logger.debug { "World $arena loaded!" }
                 })
             }
-            Logger.debug { "World $uuid loaded in $time ms" }
-        })
+        }
+        Logger.debug { "World $uuid loaded in $time ms" }
     }
 
     override fun start() {

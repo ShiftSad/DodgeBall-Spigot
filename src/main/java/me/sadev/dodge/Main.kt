@@ -19,6 +19,7 @@ class Main : JavaPlugin(), Listener {
         instance = this
         slimeAPI = server.pluginManager.getPlugin("SlimeWorldManager") as SlimePlugin
         manager = GameManager()
+        server.pluginManager.registerEvents(this, this)
     }
 
     @EventHandler
