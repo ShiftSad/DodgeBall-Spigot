@@ -11,6 +11,7 @@ interface DodgeGame {
     fun getPlayer(player: DodgePlayer): DodgePlayer?
 
     fun getGameMode(): DodgeGameMode
+    fun getArenaStatus(): ArenaStatus
 
     fun getUUID(): String
 }
