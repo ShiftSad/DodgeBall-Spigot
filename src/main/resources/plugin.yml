@@ -1,0 +1,8 @@
+name: SadevDodge
+version: '${version}'
+main: me.sadev.dodge.Main
+api-version: 1.19
+authors: [ Sadness ]
+description: Minigame DodgeBall no Minecraft
+depend:
+  - SlimeWorldManager
