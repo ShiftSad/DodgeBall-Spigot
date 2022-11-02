@@ -1,4 +1,4 @@
-package me.sadev.dodge.games
+package me.sadev.dodge.api
 
 import org.bukkit.World
 

@@ -1,4 +1,4 @@
-package me.sadev.dodge.games
+package me.sadev.dodge.arena.enums
 
 enum class ArenaStatus {
     LOADING,
