@@ -5,6 +5,7 @@ import com.grinderwolf.swm.api.SlimePlugin
 import me.sadev.dodge.arena.enums.ArenaMode
 import me.sadev.dodge.arena.players.PlayersManager
 import me.sadev.dodge.arena.players.toDodgePlayer
+import me.sadev.dodge.listeners.RQuitEvent
 import me.sadev.dodge.manager.GameManager
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -24,12 +25,14 @@ class Main : JavaPlugin(), Listener {
         slimeAPI = server.pluginManager.getPlugin("SlimeWorldManager") as SlimePlugin
         manager = GameManager()
         playerManager = PlayersManager()
+
         server.pluginManager.registerEvents(this, this)
+        server.pluginManager.registerEvents(RQuitEvent, this)
     }
 
     @EventHandler
     fun onJump(e: PlayerJumpEvent) {
-        val game = manager.createGame(ArenaMode.SQUADS)
+        val game = manager.createGame(false)
         e.player.sendMessage("Created game ${game.getUUID()}")
     }
 

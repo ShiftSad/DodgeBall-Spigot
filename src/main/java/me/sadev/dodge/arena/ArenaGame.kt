@@ -7,6 +7,7 @@ import me.sadev.dodge.arena.players.DodgePlayer
 interface ArenaGame {
 
     fun start()
+    fun end()
 
     fun addPlayer(player: DodgePlayer) : ArenaGame
     fun removePlayer(player: DodgePlayer) : ArenaGame
@@ -14,7 +15,6 @@ interface ArenaGame {
     fun getPlayers(): List<DodgePlayer>
     fun getPlayer(player: DodgePlayer): DodgePlayer?
 
-    fun getGameMode(): ArenaMode
     fun getArenaStatus(): ArenaStatus
 
     fun getUUID(): String

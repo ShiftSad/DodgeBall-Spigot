@@ -10,5 +10,8 @@ data class ArenaConfiguration(
     val spawn: SimplexLocation,
 
     val redTeamSpawn: SimplexLocation,
-    val blueTeamSpawn: SimplexLocation
+    val blueTeamSpawn: SimplexLocation,
+
+    val middlePointOne: SimplexLocation,
+    val middlePointTwo: SimplexLocation,
 )
